@@ -1,0 +1,198 @@
+Algoritmo "Registro"
+
+// Definição do tipo de dados Registro
+tipo
+usuario = registro
+nome: caractere
+idade: inteiro
+altura: real
+telefone: caractere
+endereco: caractere
+email: caractere
+aprovado: logico
+fimregistro
+var
+users = registro
+
+// Declaração de variáveis globais
+inicio
+vetor registros: vetor[10] de TipoRegistro
+tamanho: inteiro <- 0
+
+// Função para adicionar um novo registro
+funcao adicionarRegistro(nome: caractere, idade: inteiro, altura: real, telefone: caractere, endereco: caractere, email: caractere, aprovado: logico)
+se tamanho < 10 entao
+registros[tamanho].nome <- nome
+registros[tamanho].idade <- idade
+registros[tamanho].altura <- altura
+registros[tamanho].telefone <- telefone
+registros[tamanho].endereco <- endereco
+registros[tamanho].email <- email
+registros[tamanho].aprovado <- aprovado
+tamanho <- tamanho + 1
+escrever("Registro adicionado com sucesso!")
+senao
+escrever("Não é possível adicionar mais registros")
+fim_se
+fim_funcao
+
+// Procedimento para exibir os registros cadastrados
+procedimento exibirRegistros
+se tamanho = 0 entao
+escrever("Nenhum registro encontrado")
+senao
+para i de 0 ate tamanho-1 faca
+escreverLinhas(1)
+escrever("Nome: ", registros[i].nome)
+escrever("Idade: ", registros[i].idade)
+escrever("Altura: ", registros[i].altura)
+escrever("Telefone: ", registros[i].telefone)
+escrever("Endereço: ", registros[i].endereco)
+escrever("Email: ", registros[i].email)
+escrever("Aprovado: ", registros[i].aprovado)
+fimpara
+fimse
+fimprocedimento
+
+// Procedimento para alterar um registro existente
+procedimento alterarRegistro
+escrever("Informe o nome do registro que deseja alterar:")
+ler(nomePesquisa)
+
+para i de 0 ate tamanho-1 faca
+    se registros[i].nome = nomePesquisa entao
+        escrever("Informe os novos dados:")
+        escrever("Nome: ")
+        ler(registros[i].nome)
+        escrever("Idade: ")
+        ler(registros[i].idade)
+        escrever("Altura: ")
+        ler(registros[i].altura)
+        escrever("Telefone: ")
+        ler(registros[i].telefone)
+        escrever("Endereço: ")
+        ler(registros[i].endereco)
+        escrever("Email: ")
+        ler(registros[i].email)
+        escrever("Aprovado: ")
+        ler(registros[i].aprovado)
+        escrever("Registro alterado com sucesso!")
+        interromper
+    fimse
+fimpara
+
+escrever("Registro não encontrado")
+fimprocedimento
+
+// Procedimento para remover um registro
+procedimento removerRegistro
+escrever("Informe o nome do registro que deseja remover:")
+ler(nomePesquisa)
+
+para i de 0 ate tamanho-1 faca
+    se registros[i].nome = nomePesquisa entao
+        registros[i] &lt;- registros[tamanho-1]
+        tamanho <- tamanho - 1
+        escrever("Registro removido com sucesso!")
+        interromper
+    fimse
+fimpara
+
+escrever("Registro não encontrado")
+fimprocedimento
+
+// Procedimento para filtrar os registros por idade
+procedimento filtrarPorIdade
+escrever("Informe a idade mínima:")
+ler(idadeMin)
+
+escrever("Informe a idade máxima:")
+ler(idadeMax)
+
+se idadeMin &gt; idadeMax entao
+    escrever("Idade mínima deve ser menor ou igual que idade máxima")
+    interromper
+fimse
+
+filtrados: vetor[10] de TipoRegistro
+tamanhoFiltrados: inteiro <- 0
+
+para i de 0 ate tamanho-1 faca
+    se registros[i].idade &gt;= idadeMin e registros[i].idade &lt;= idadeMax entao
+        filtrados[tamanhoFiltrados] <- registros[i]
+        tamanhoFiltrados <- tamanhoFiltrados + 1
+    fimse
+fimpara
+
+se tamanhoFiltrados = 0 entao
+    escrever("Nenhum registro encontrado com os critérios de filtro")
+senao
+    escreverLinhas(1)
+    escrever("Registros filtrados por idade:")
+    para i de 0 ate tamanhoFiltrados-1 faca
+        escreverLinhas(1)
+        escrever("Nome: ", filtrados[i].nome)
+        escrever("Idade: ", filtrados[i].idade)
+        escrever("Altura: ", filtrados[i].altura)
+        escrever("Telefone: ", filtrados[i].telefone)
+        escrever("Endereço: ", filtrados[i].endereco)
+        escrever("Email: ", filtrados[i].email)
+        escrever("Aprovado: ", filtrados[i].aprovado)
+    fimpara
+fimse
+fimprocedimento
+
+// Menu principal
+escrever("Bem-vindo(a) ao Registro")
+escrever("Selecione uma opção:")
+escrever("1. Adicionar novo registro")
+escrever("2. Exibir registros cadastrados")
+escrever("3. Alterar registro")
+escrever("4. Remover registro")
+escrever("5. Filtrar registros por idade")
+escrever("0. Sair")
+ler(opcao)
+
+enquanto opcao <> 0 faca
+se opcao = 1 entao
+escrever("Informe os dados do novo registro:")
+escrever("NOME: ")
+ler(nome)
+escrever("IDADE: ")
+ler(idade)
+escrever("ALTURA: ")
+ler(altura)
+escrever("TELEFONE: ")
+ler(telefone)
+escrever("ENDEREÇO: ")
+ler(endereco)
+escrever("EMAIL: ")
+ler(email)
+escrever("APROVADO (S/N): ")
+ler(aprovado)
+
+    adicionarRegistro(nome, idade, altura, telefone, endereco, email, aprovado)
+senao se opcao = 2 entao
+    exibirRegistros
+senao se opcao = 3 entao
+    alterarRegistro
+senao se opcao = 4 entao
+    removerRegistro
+senao se opcao = 5 entao
+    filtrarPorIdade
+fimse
+
+escreverLinhas(2)
+escrever("Selecione uma opção:")
+escrever("1. Adicionar novo registro")
+escrever("2. Exibir registros cadastrados")
+escrever("3. Alterar registro")
+escrever("4. Remover registro")
+escrever("5. Filtrar registros por idade")
+escrever("0. Sair")
+ler(opcao)
+fimenquanto
+
+escrever("Programa encerrado")
+
+
