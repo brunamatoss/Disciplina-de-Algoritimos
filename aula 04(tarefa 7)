@@ -1,0 +1,5 @@
+quant_compra = float(input("Digite o valor da compra: "))
+
+valor_parcela = quant_compra / 5
+
+print("Valor de cada prestação:", valor_parcela)
